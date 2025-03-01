@@ -1,11 +1,9 @@
 import discord
-
 from io import BytesIO
 from utils import default
 from utils.default import CustomContext
 from discord.ext import commands
 from utils.data import DiscordBot
-
 
 class Discord_Info(commands.Cog):
     def __init__(self, bot):
@@ -15,11 +13,12 @@ class Discord_Info(commands.Cog):
     @commands.guild_only()
     async def avatar(self, ctx: CustomContext, *, user: discord.Member = None):
         """ Get the avatar of you or someone else """
-        user = user or ctx.author
+        user = user or ctx.author  # Default to the author if no user is specified
 
         avatars_list = []
 
         def target_avatar_formats(target):
+            """ Helper function to determine available avatar formats """
             formats = ["JPEG", "PNG", "WebP"]
             if target.is_animated():
                 formats.append("GIF")
